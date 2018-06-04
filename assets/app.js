@@ -13,7 +13,7 @@ var config = {
    console.log(firebase)
 
 // Submit button for adding a new train
-  $("#submit").on("click", function(event){
+  $("form").on("submit", function(event){
     event.preventDefault();
 
     var name = $("#train-name").val().trim();
@@ -21,12 +21,17 @@ var config = {
     var time = $("#train-time").val().trim();
     var frequency = $("#train-frequency").val().trim();
 
+    console.log(name);
+    console.log(destination);
+    console.log(time);
+    console.log(frequency);
+
 //Created local object for holding train data
     var newTrain = {
-        train: trainName,
-        destination: trainDestination,
-        time: trainTime, 
-        frequency: trainFrequency,
+        train: name,
+        destination: destination,
+        time: time, 
+        frequency: frequency,
         
     
     };
@@ -35,12 +40,12 @@ var config = {
 
     //Code for setting values in the database//
 
-    database.ref().push(newTrain);
+    // database.ref().on("child_added", (snap) (newTrain);
 
-    console.log(newTrain.name);
-    (newTrain.destionation);
-    (newTrain.time);
-    (newTrain.frequency);
+    // // console.log(newTrain.name);
+    // (newTrain.destionation);
+    // (newTrain.time);
+    // (newTrain.frequency);
         
      
   });
