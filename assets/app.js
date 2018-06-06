@@ -12,6 +12,11 @@ var config = {
    var database = firebase.database();
    console.log(firebase)
 
+   var name = "";
+   var destination = "";
+   var time = "";
+   var frequency = "";
+
     $("#send").click(function(){
         event.preventDefault();
 
@@ -28,7 +33,31 @@ var config = {
    
    };
 
-   console.log("hi")
-   console.log(newTrain);
+   //Clears all of the input fields
+   $("#train-name").val("");
+   $("#train-destination").val("");
+   $("#train-time").val("");
+   $("#train-frequency").val("");
+ 
+  
    database.ref().push(newTrain).key;
-    })
+
+   database.ref().on("child_added", function(snapshot){
+    console.log(snapshot.val());
+
+    var htmlToAppend = `
+    <tr>
+      <td>${snapshot.val().name}</td>
+      <td>${snapshot.val().destination}</td>
+      <td>${snapshot.val().time}</td>
+      <td>${snapshot.val().frequency}</td>
+    </tr>
+  `
+  $(".table tbody").append(htmlToAppend)
+    
+})
+
+   
+    });
+
+ 
