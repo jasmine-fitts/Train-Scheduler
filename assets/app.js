@@ -55,9 +55,31 @@ var config = {
   `
   $(".table tbody").append(htmlToAppend)
     
-})
 
-   
-    });
+tFrequency = frequency;
+
+firstTime = "00:35";
+
+
+var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+    console.log(firstTimeConverted);
+
+var currentTime = moment()
+    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    console.log("DIFFERENCE IN TIME: " + diffTime);
+
+var timeRemaining = diffTime % tFrequency 
+ console.log(timeRemaining);
+
+ var tMinutesUntilArrival = tFrequency - timeRemaining
+ console.log("MINUTES UNTIL ARRIVAL: " + tMinutesUntilArrival);
+
+ var nextTrain = moment().add(tMinutesUntilArrival, "minutes");
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
  
+}) 
+    });
+// Code the app to calculate when the next train will arrive - this should be relative to the current time
