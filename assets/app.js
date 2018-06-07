@@ -93,16 +93,9 @@ var timeRemaining = diffTime % tFrequency
  var nextTrain = moment().add(minutesUntilArrival, "m").format();
     console.log("ARRIVAL TIME: " + moment(nextTrain).format("h:mm A"));
 
-    var newTrain = {
-        name: name,
-        destination: destination,
-        frequency: frequency, 
-        time: time, 
-        minutesAway: minutesAway,
-        nextArrival: nextArrival,
-    
-    };
 
+    
+  
 }) 
     });
 
