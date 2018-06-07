@@ -14,30 +14,37 @@ var config = {
 
    var name = "";
    var destination = "";
-   var time = "";
    var frequency = "";
+   var time = "";
+   var minutesAway = "";
+   var nextArrival = ""
+   
+   
 
     $("#send").click(function(){
         event.preventDefault();
 
     var name = $("#train-name").val().trim();
     var destination = $("#train-destination").val().trim();
-    var time = $("#train-time").val().trim();
     var frequency = $("#train-frequency").val().trim();
-
+    var time = $("#train-time").val().trim();
+    
+    
    var newTrain = {
        name: name,
        destination: destination,
-       time: time, 
        frequency: frequency, 
+       time: time, 
+       minutesAway: minutesAway,
+       nextArrival: nextArrival,
    
    };
 
    //Clears all of the input fields
    $("#train-name").val("");
    $("#train-destination").val("");
-   $("#train-time").val("");
    $("#train-frequency").val("");
+   $("#train-time").val("");
  
   
    database.ref().push(newTrain).key;
@@ -49,16 +56,23 @@ var config = {
     <tr>
       <td>${snapshot.val().name}</td>
       <td>${snapshot.val().destination}</td>
-      <td>${snapshot.val().time}</td>
-      <td>${snapshot.val().frequency}</td>
+      <td>${snapshot.val().frequency}</td>  
+      <td>${snapshot.val().nextTrain}</td>
+      <td>${snapshot.val().minutesUntilArrival}</td>
+      
     </tr>
   `
   $(".table tbody").append(htmlToAppend)
-    
+ 
+
+// Code the app to calculate when the next train will arrive - this should be relative to the current time
 
 tFrequency = frequency;
 
-firstTime = "00:35";
+firstTime = time;
+
+minutesUntilArrival = minutesAway; 
+nextTrain =   nextArrival;
 
 
 var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
@@ -73,13 +87,22 @@ var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
 var timeRemaining = diffTime % tFrequency 
  console.log(timeRemaining);
 
- var tMinutesUntilArrival = tFrequency - timeRemaining
- console.log("MINUTES UNTIL ARRIVAL: " + tMinutesUntilArrival);
+ var minutesUntilArrival = tFrequency - timeRemaining
+ console.log("MINUTES UNTIL ARRIVAL: " + minutesUntilArrival);
 
- var nextTrain = moment().add(tMinutesUntilArrival, "minutes");
-    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+ var nextTrain = moment().add(minutesUntilArrival, "m").format();
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("h:mm A"));
 
- 
+    var newTrain = {
+        name: name,
+        destination: destination,
+        frequency: frequency, 
+        time: time, 
+        minutesAway: minutesAway,
+        nextArrival: nextArrival,
+    
+    };
+
 }) 
     });
-// Code the app to calculate when the next train will arrive - this should be relative to the current time
+
